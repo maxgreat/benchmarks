@@ -13,4 +13,6 @@ python3 -m pip install torchvision torchaudio torchtext
 export DNNL_DEFAULT_FPMATH_MODE=BF16
 export LRU_CACHE_CAPACITY=1024
 
+git clone https://github.com/maxgreat/benchmarks.git
+
 
