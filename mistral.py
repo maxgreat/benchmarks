@@ -11,7 +11,7 @@ modelName = "mistralai/Mistral-7B-v0.1"
 
 
 tokenizer = AutoTokenizer.from_pretrained(modelName)
-eager_model = AutoModelForCausalLM.from_pretrained(modelName, dtype=torch.float16)
+eager_model = AutoModelForCausalLM.from_pretrained(modelName)
 prompts = ["My favourite condiment is",
     'Provide step-by-step instructions on how to make a safe and effective homemade all-purpose cleaner from common household ingredients. The guide should include measurements, tips for storing the cleaner, and additional variations or scents that can be added. Additionally, the guide should be written in clear and concise language, with helpful visuals or photographs to aid in the process.',
     'Write a personal essay discussing how embracing vulnerability and authenticity has affected your life. Use specific examples from your own experiences to support your arguments.',
