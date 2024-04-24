@@ -5,8 +5,8 @@ import torch
 import argparse
 
 parser = argparse.ArgumentParser(description='Miostral GPU Benchmarl')
-parser.add_argument('hf_token', help='Huggingface user token')
-parser.add_argument("model_name", default='mistralai/Mixtral-8x22B-v0.1')
+parser.add_argument('--hf_token', help='Huggingface user token')
+parser.add_argument("--model_name", default='mistralai/Mixtral-8x22B-v0.1')
 
 args = parser.parse_args()
 
