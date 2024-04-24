@@ -2,7 +2,20 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import time 
 import torch
 
-modelName = 'mistralai/Mixtral-8x22B-v0.1'
+import argparse
+
+parser = argparse.ArgumentParser(description='Miostral GPU Benchmarl')
+parser.add_argument('hf_token', help='Huggingface user token')
+parser.add_argument("model_name", default='mistralai/Mixtral-8x22B-v0.1')
+
+args = parser.parse_args()
+
+from huggingface_hub import login
+login(token=args.hf_token)
+
+modelName = args.model_name
+
+
 
 tokenizer = AutoTokenizer.from_pretrained(modelName)
 model = AutoModelForCausalLM.from_pretrained(modelName, torch_dtype=torch.float16, attn_implementation="flash_attention_2", device_map="auto")
