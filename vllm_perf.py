@@ -19,6 +19,8 @@ sampling_params = SamplingParams(temperature=0.8, top_p=0.95, max_tokens=200)
 # Create an LLM.
 #llm = LLM(model="mistralai/Mistral-7B-v0.1", max_model_len=8192)
 llm = LLM(model="meta-llama/Meta-Llama-3-8B", max_model_len=8192)
+llm = LLM(model="meta-llama/Meta-Llama-3-70B", max_model_len=8192, tensor_parallel_size=8)
+
 
 
 # Generate texts from the prompts. The output is a list of RequestOutput objects
