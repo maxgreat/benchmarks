@@ -1,3 +1,6 @@
+import os
+os.environ['HF_HOME'] = '/workspace/hf_cache'
+
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import time 
 import torch
@@ -6,7 +9,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Miostral GPU Benchmarl')
 parser.add_argument('--hf_token', help='Huggingface user token')
-parser.add_argument("--model_name", default='mistralai/Mixtral-8x22B-v0.1')
+parser.add_argument("--model_name", default='mistralai/Mixtral-7B-v0.1')
 
 args = parser.parse_args()
 
@@ -33,7 +36,7 @@ with torch.no_grad():
         print("Evaluation prompt : ", prompt)
         model_inputs = tokenizer([prompt], return_tensors="pt").to("cuda")
         t = time.time()
-        generated_ids = model.generate(**model_inputs, max_new_tokens=50, do_sample=True)
+        generated_ids = model.generate(**model_inputs, max_new_tokens=100, do_sample=True)
         total_time = time.time() - t
         total_tokens += len(generated_ids[0])
         print(f"Response has : {len(generated_ids[0])} tokens")

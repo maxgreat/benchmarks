@@ -1,4 +1,4 @@
-torch torchvision
+torch 
+torchvision
 transformers
 accelerate
-flash-attn
