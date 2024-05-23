@@ -8,7 +8,7 @@ from vllm import LLM, SamplingParams
 import time 
 
 from huggingface_hub import login
-login(token='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')
+login(token='')
 
 
 def compute_kv_cache_size(config, batch_size, sequence_length):
