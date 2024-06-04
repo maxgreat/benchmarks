@@ -16,7 +16,7 @@ def compute_kv_cache_size(config, batch_size, sequence_length):
     d_model = config.hidden_size
     n_heads = config.num_attention_heads
     n_layers = config.num_hidden_layers
-    n_kv_heads = config.num_key_value_heads  # Assuming key-value heads are specified
+    n_kv_heads = config.num_key_value_heads
     # KV cache size calculation in bytes
     kv_cache_size = batch_size * sequence_length * (d_model // n_heads) * n_layers * 2 * 2 * n_kv_heads * 2  # 2 bytes for fp16
     return kv_cache_size
@@ -61,6 +61,7 @@ model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float
 # Generate texts from the prompts. The output is a list of RequestOutput objects
 # that contain the prompt, generated text, and other information.
 for prompt in prompts :
+    input_tokens = tokenizer(prompt, return_tensors='pt').input_ids.shape[1]
     start = time.time()
     response = llm.generate([prompt], sampling_params)
     end = time.time()
@@ -71,10 +72,11 @@ for prompt in prompts :
     print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}, in {latency} sec. Throughput: {through_put}tokens/second")
     tpot = latency / output_tokens
 
+    total_sequence_length = input_tokens + output_tokens
     # Calculate MBU
-    mbu = estimate_mbu(model, 1, 200, latency)
+    mbu = estimate_mbu(model, 1, 200, tpot)
     print(f"Memory Bandwidth Utilization (MBU): {mbu}")
 
     # Estimate MFU
-    mfu = estimate_mfu(model, 1, latency, 200)
+    mfu = estimate_mfu(model, 1, through_put, 200)
     print(f"Model FLOPs Utilization (MFU): {mfu}")
