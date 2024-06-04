@@ -9,7 +9,7 @@ import torch
 from utilization import *
 
 from huggingface_hub import login
-login(token='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')
+login(token='')
 
 # Sample prompts.
 prompts = [
