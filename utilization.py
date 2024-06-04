@@ -8,7 +8,7 @@ from vllm import LLM, SamplingParams
 import time 
 
 from huggingface_hub import login
-login(token='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')
+login(token='')
 
 
 def compute_kv_cache_size(config, batch_size, sequence_length):
@@ -78,5 +78,7 @@ for prompt in prompts :
     print(f"Memory Bandwidth Utilization (MBU): {mbu}")
 
     # Estimate MFU
+
     mfu = estimate_mfu(model, 1, through_put, 200)
     print(f"Model FLOPs Utilization (MFU): {mfu}")
+
